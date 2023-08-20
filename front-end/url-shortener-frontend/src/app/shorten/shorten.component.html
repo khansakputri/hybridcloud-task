@@ -1,0 +1,42 @@
+<!-- <div class="container">
+        <h1>URL Shrinker</h1>
+        <form action="/shortUrls" method="POST" class="my-4 form-inline">
+            <label for="fullUrl" class="sr-only">Url</label>
+            <input required placeholder="Url" type="url" name="fullUrl" id="fullUrl" class="form-control col mr-2">
+            <button class="btn btn-success" type="submit">Shrink</button>
+        </form>
+
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Full URL</th>
+                    <th>Short URL</th>
+                    <th>Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><a href="example-full-url.com">example-full-url.com</a></td>
+                    <td><a href="example-short-url.com">example-short-url.com</a></td>
+                    <td>123</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div> -->
+
+    <div class="container">
+        <h2>URL Shortener</h2>
+        <form (submit)="shortenUrl()">
+          <div class="form-group">
+            <input type="url" class="form-control" placeholder="Enter URL" [(ngModel)]="fullUrl" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Shorten</button>
+        </form>
+        <div *ngIf="shortenedUrl">
+          <p>Shortened URL:</p>
+          <a [href]="shortenedUrl" target="_blank">{{ shortenedUrl }}</a>
+        </div>
+      </div>
+      
