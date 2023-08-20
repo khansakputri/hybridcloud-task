@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container">
         <h1>URL Shrinker</h1>
         <form action="/shortUrls" method="POST" class="my-4 form-inline">
             <label for="fullUrl" class="sr-only">Url</label>
@@ -15,18 +15,21 @@
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
                     <td><a href="example-full-url.com">example-full-url.com</a></td>
                     <td><a href="example-short-url.com">example-short-url.com</a></td>
                     <td>123</td>
                 </tr>
-
+                <tr *ngFor="let shortenUrl of urls;let i = index">
+                  <td><a [href]="shortenUrl.full">{{ shortenUrl.full }}</a></td>
+                  <td><a [href]="shortenUrl.short">{{ shortenUrl.short }}</a></td>
+                  <td>{{ shortenUrl.clicks }}</td>
+                </tr>
             </tbody>
         </table>
-    </div> -->
+    </div>
 
-    <div class="container">
+    <!-- <div class="container">
         <h2>URL Shortener</h2>
         <form (submit)="shortenUrl()">
           <div class="form-group">
@@ -39,4 +42,4 @@
           <a [href]="shortenedUrl" target="_blank">{{ shortenedUrl }}</a>
         </div>
       </div>
-      
+       -->

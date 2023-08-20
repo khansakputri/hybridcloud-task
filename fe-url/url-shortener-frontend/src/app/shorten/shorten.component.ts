@@ -1,23 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ShortenService } from '../services/shorten.service';
+import { Shorten } from '../shorten';
 
 @Component({
   selector: 'app-shorten',
   templateUrl: './shorten.component.html',
   styleUrls: ['./shorten.component.css']
 })
-export class ShortenComponent {
-  fullUrl: string = '';
-  shortenedUrl: string | null = null;
+export class ShortenComponent implements OnInit{
 
-  constructor(private http: HttpClient) { }
+  urls: Shorten[] = [];
 
-  shortenUrl() {
-    this.http.post<any>('/api/shorten', { full: this.fullUrl }).subscribe(response => {
-      this.shortenedUrl = response.short;
-    }, error => {
-      console.error(error);
-      this.shortenedUrl = null;
+  constructor(
+    private shortenService: ShortenService
+  ) {}
+
+  ngOnInit() {
+    this.shortenService.getURLs().subscribe({
+      next: (urls) => {
+        console.log(urls);
+        this.urls = urls;
+      },
+
+      error: (error) => {
+        console.log(error);
+      },
     });
   }
 }
