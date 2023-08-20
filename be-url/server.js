@@ -1,8 +1,11 @@
 const express = require('express')
+const app = express()
 const mongoose = require('mongoose')
 const ShortUrl = require('./models/shortUrl')
-const app = express()
-const port = process.env.PORT || 3000;
+const port = 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb+srv://khansakputri:pass12345@cluster0.6ygbo3n.mongodb.net/URL-Shortener', {
   useNewUrlParser: true,
@@ -14,12 +17,17 @@ app.use(express.urlencoded({ extended: false }))
 
 app.get('/', async (req, res) => {
   const shortUrls = await ShortUrl.find()
-  // res.render('index', { shortUrls: shortUrls })
+  res.render('index', { shortUrls: shortUrls })
 })
 
 app.post('/shortUrls', async (req, res) => {
-  await ShortUrl.create({ full: req.body.fullUrl })
+  const fullUrl = req.body.fullUrl;
+  // Generate a short code using 'shortid' or any other method
+  const shortCode = shortid.generate();
+  // Save the URL mapping in the database
+  await ShortUrl.insertOne({ full: fullUrl, short: shortCode, clicks: 0 });
 
+  // await ShortUrl.create({ full: req.body.fullUrl })
   res.redirect('/')
 })
 
